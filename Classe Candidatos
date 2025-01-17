@@ -1,0 +1,32 @@
+ackage urnaeletronica;
+
+public class Candidado {
+	private String nomes;
+	private int numeros;
+	private int votos;
+	
+	public void Candidato (String nomes, int numero) {
+		this.nomes = nomes;
+		this.numeros = numeros;
+		this.votos = 0;
+		
+		}
+	
+	public String getNome() {
+		return nomes;
+	}
+	
+	public int getNumero() {
+		return numeros;
+	}
+	
+	public int getVotos() {
+		return votos;
+	}
+	
+	public void incrementarVotos() {
+		this.votos++;
+	}
+	
+	
+}
