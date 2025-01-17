@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class UrnaEletronica {
+	private String[] nomes = {"Ada Lovelace", "Alan Turing", "Marie Curie", "Albert Einstein", "Ludwig van Beethoven"};
+	private int[] numerosV = {1,2,3,4,5};
+	private int[] votos = new int[nomes.length];
+	private int votosNulos = 0;
+	
+	public void receberVoto(int numeros) {
+		boolean votoValido = true;
+	
+	for (int i = 0; i < numerosV.length; i++) {
+		if (numerosV[i] == numeros) {
+            votos[i]++; 
+            votoValido = true;
+            break;
+        }
+	}
+	
+	if (!votoValido) {
+        votosNulos++;
+    }
+}
+	
+	public void exibirResultados() {
+        int totalVotosValidos = 0;
+        int maxVotos = 0;
+        String vencedor = "";
+        boolean empate = false;
+        
+    for (int i = 0; i < votos.length; i++) {
+        totalVotosValidos += votos[i];
+        }
+    
+    System.out.println("Resultado da Votação:");
+    for (int i = 0; i < nomes.length; i++) {
+        double percentual = (totalVotosValidos > 0) ? (votos[i] * 100.0 / totalVotosValidos) : 0.0;
+        System.out.printf("%s: %d votos (%.1f%%)%n", nomes[i], votos[i], percentual);
+    
+    if (votos[i] > maxVotos) {
+        maxVotos = votos[i];
+        vencedor = nomes[i];
+        empate = false;
+    } else if (votos[i] == maxVotos && maxVotos > 0) {
+        empate = true;
+    }
+    
+	}
+	
+	System.out.printf("Votos Nulos: %d%n", votosNulos);
+	
+	 if (empate) {
+         System.out.println("Resultado: Houve empate entre os candidatos com mais votos.");
+     } else if (maxVotos > 0) {
+         System.out.printf("Vencedor: %s%n", vencedor);
+     } else {
+         System.out.println("Nenhum vencedor (sem votos válidos).");
+     }
+	}
+          
+ public srartic void main(String[] args) {
+	    UrnaEletronica urna = new UrnaEletronica();
+	    Scanner scanner = new Scanner(System.in);
+
+	    System.out.println("Bem-vindo à Urna Eletrônica!");
+	    System.out.println("Candidatos:");
+	    for (int i = 0; i < urna.nomes.length; i++) {
+	      System.out.printf("%02d - %s%n", urna.numerosV[i], urna.nomes[i]);
+	        }
+	    
+	    int totalVotos = 10;
+	    for (int i = 1; i <= totalVotos; i++) {
+	        System.out.printf("Digite o número do seu candidato (%d/%d): ", i, totalVotos);
+
+	        if (scanner.hasNextInt()) { 
+	            int numero = scanner.nextInt();
+	            urna.receberVoto(numero);
+	        } else {
+	            System.out.println("Entrada inválida! Voto computado como nulo.");
+	            scanner.next(); 
+	            urna.receberVoto(-1); 
+	        }
+	    }
+        urna.exibirResultados();
+        scanner.close();
+	}
+}
+
